@@ -2,133 +2,128 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sports Stats Viewer</title>
+<title>Sports Records & History</title>
 
 <style>
-body {
+body{
   font-family: Arial;
-  background: #0f172a;
-  color: white;
-  margin: 0;
-  padding: 0;
+  background:#0f172a;
+  color:white;
+  margin:0;
 }
-
-header {
-  background: #1e293b;
-  padding: 15px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: bold;
+header{
+  background:#1e293b;
+  padding:15px;
+  text-align:center;
+  font-size:20px;
+  font-weight:bold;
 }
-
-.tabs {
-  display: flex;
-  justify-content: center;
-  margin: 15px;
+.tabs{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin:10px;
 }
-
-button {
-  background: #334155;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 8px;
-  cursor: pointer;
+button{
+  background:#334155;
+  color:white;
+  border:none;
+  padding:8px 12px;
+  margin:5px;
+  border-radius:8px;
+  cursor:pointer;
 }
-
-button:hover {
-  background: #475569;
+button:hover{
+  background:#475569;
 }
-
-.card {
-  background: #1e293b;
-  margin: 15px;
-  padding: 15px;
-  border-radius: 12px;
+.card{
+  background:#1e293b;
+  margin:12px;
+  padding:12px;
+  border-radius:10px;
 }
-
-.search {
-  text-align: center;
-  margin: 15px;
+input{
+  padding:7px;
+  width:70%;
+  border-radius:6px;
+  border:none;
 }
-
-input {
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  width: 70%;
+.search{
+  text-align:center;
+  margin:10px;
 }
-
 </style>
 </head>
 
 <body>
 
-<header>Sports Stats Viewer</header>
+<header>Sports Records & History</header>
 
 <div class="search">
-  <input type="text" id="searchBox" placeholder="Search player...">
-  <button onclick="searchPlayer()">Search</button>
+  <input type="text" id="searchBox" placeholder="Search year, team or player">
+  <button onclick="searchData()">Search</button>
 </div>
 
 <div class="tabs">
-  <button onclick="showSport('football')">Football</button>
-  <button onclick="showSport('cricket')">Cricket</button>
-  <button onclick="showSport('basketball')">Basketball</button>
+  <button onclick="showSection('football')">Football</button>
+  <button onclick="showSection('cricket')">Cricket</button>
+  <button onclick="showSection('basketball')">Basketball</button>
 </div>
 
 <div id="content"></div>
 
 <script>
 
-const data = {
-  football: [
-    {name:"Player A", stat:"28 Goals"},
-    {name:"Player B", stat:"22 Goals"}
-  ],
-  cricket: [
-    {name:"Player C", stat:"Average 62.4"},
-    {name:"Player D", stat:"Economy 3.8"}
-  ],
-  basketball: [
-    {name:"Player E", stat:"34.5 PPG"},
-    {name:"Player F", stat:"29.1 PPG"}
-  ]
+const database = {
+football:[
+"1930 - Uruguay (World Cup Winner)",
+"1934 - Italy (World Cup Winner)",
+"1958 - Brazil (World Cup Winner)",
+"2002 - Brazil (World Cup Winner)",
+"2018 - France (World Cup Winner)",
+"2022 - Argentina (World Cup Winner)",
+"All-Time Top Scorer: Cristiano Ronaldo (International Goals Record)"
+],
+cricket:[
+"1975 - West Indies (World Cup Winner)",
+"1983 - India (World Cup Winner)",
+"1999 - Australia (World Cup Winner)",
+"2011 - India (World Cup Winner)",
+"2019 - England (World Cup Winner)",
+"Highest ODI Runs: Sachin Tendulkar (18426)",
+"Fastest ODI Century: AB de Villiers (31 balls)"
+],
+basketball:[
+"1996 - Chicago Bulls (NBA Champions)",
+"2001 - Los Angeles Lakers (NBA Champions)",
+"2016 - Cleveland Cavaliers (NBA Champions)",
+"2020 - LA Lakers (NBA Champions)",
+"All-Time Points Leader: LeBron James",
+"Most NBA Championships (Player): Bill Russell"
+]
 };
 
-function showSport(sport){
+function showSection(section){
   const container = document.getElementById("content");
   container.innerHTML = "";
-
-  data[sport].forEach(player => {
-    container.innerHTML += `
-      <div class="card">
-        <h3>${player.name}</h3>
-        <p>${player.stat}</p>
-      </div>
-    `;
+  database[section].forEach(item=>{
+    container.innerHTML += `<div class="card">${item}</div>`;
   });
 }
 
-function searchPlayer(){
+function searchData(){
   const query = document.getElementById("searchBox").value.toLowerCase();
   const container = document.getElementById("content");
   container.innerHTML = "";
 
-  Object.values(data).flat().forEach(player => {
-    if(player.name.toLowerCase().includes(query)){
-      container.innerHTML += `
-        <div class="card">
-          <h3>${player.name}</h3>
-          <p>${player.stat}</p>
-        </div>
-      `;
+  Object.values(database).flat().forEach(item=>{
+    if(item.toLowerCase().includes(query)){
+      container.innerHTML += `<div class="card">${item}</div>`;
     }
   });
 }
 
-showSport('football');
+showSection('football');
 
 </script>
 
