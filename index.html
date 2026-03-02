@@ -2,72 +2,35 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sports Records & History</title>
+<title>Global Sports Records</title>
 
 <style>
-body{
-  font-family: Arial;
-  background:#0f172a;
-  color:white;
-  margin:0;
-}
-header{
-  background:#1e293b;
-  padding:15px;
-  text-align:center;
-  font-size:20px;
-  font-weight:bold;
-}
-.tabs{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  margin:10px;
-}
-button{
-  background:#334155;
-  color:white;
-  border:none;
-  padding:8px 12px;
-  margin:5px;
-  border-radius:8px;
-  cursor:pointer;
-}
-button:hover{
-  background:#475569;
-}
-.card{
-  background:#1e293b;
-  margin:12px;
-  padding:12px;
-  border-radius:10px;
-}
-input{
-  padding:7px;
-  width:70%;
-  border-radius:6px;
-  border:none;
-}
-.search{
-  text-align:center;
-  margin:10px;
-}
+body{font-family:Arial;margin:0;background:#0f172a;color:white}
+header{background:#111827;padding:15px;text-align:center;font-size:20px}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;margin:10px}
+button{background:#1f2937;color:white;border:none;padding:8px 12px;margin:5px;border-radius:6px;cursor:pointer}
+button:hover{background:#374151}
+.card{background:#1e293b;margin:12px;padding:12px;border-radius:8px}
+input{padding:7px;border-radius:5px;border:none;width:70%}
+.search{text-align:center;margin:10px}
+small{color:#9ca3af}
 </style>
 </head>
 
 <body>
 
-<header>Sports Records & History</header>
+<header>Global Sports Records & Match Archive</header>
 
 <div class="search">
-  <input type="text" id="searchBox" placeholder="Search year, team or player">
-  <button onclick="searchData()">Search</button>
+<input type="text" id="searchBox" placeholder="Search player, country, year">
+<button onclick="searchAll()">Search</button>
 </div>
 
 <div class="tabs">
-  <button onclick="showSection('football')">Football</button>
-  <button onclick="showSection('cricket')">Cricket</button>
-  <button onclick="showSection('basketball')">Basketball</button>
+<button onclick="showData('football')">Football WC</button>
+<button onclick="showData('cricket')">Cricket WC</button>
+<button onclick="showData('nba')">NBA Finals</button>
+<button onclick="showData('players')">Player Records</button>
 </div>
 
 <div id="content"></div>
@@ -75,55 +38,64 @@ input{
 <script>
 
 const database = {
+
 football:[
-"1930 - Uruguay (World Cup Winner)",
-"1934 - Italy (World Cup Winner)",
-"1958 - Brazil (World Cup Winner)",
-"2002 - Brazil (World Cup Winner)",
-"2018 - France (World Cup Winner)",
-"2022 - Argentina (World Cup Winner)",
-"All-Time Top Scorer: Cristiano Ronaldo (International Goals Record)"
+"1930 - Uruguay defeated Argentina (4-2) - Host: Uruguay",
+"1958 - Brazil defeated Sweden (5-2) - Pelé scored 2 goals",
+"1998 - France defeated Brazil (3-0) - Zidane 2 headers",
+"2014 - Germany defeated Argentina (1-0) - Götze extra time goal",
+"2018 - France defeated Croatia (4-2)",
+"2022 - Argentina defeated France (Penalties 4-2)"
 ],
+
 cricket:[
-"1975 - West Indies (World Cup Winner)",
-"1983 - India (World Cup Winner)",
-"1999 - Australia (World Cup Winner)",
-"2011 - India (World Cup Winner)",
-"2019 - England (World Cup Winner)",
-"Highest ODI Runs: Sachin Tendulkar (18426)",
-"Fastest ODI Century: AB de Villiers (31 balls)"
+"1975 - West Indies defeated Australia - Clive Lloyd 102",
+"1983 - India defeated West Indies - Kapil Dev captain",
+"1999 - Australia defeated Pakistan - Shane Warne 4 wickets",
+"2011 - India defeated Sri Lanka - Dhoni 91*",
+"2019 - England defeated New Zealand - Super Over",
+"2023 - Australia defeated India - Final at Ahmedabad"
 ],
-basketball:[
-"1996 - Chicago Bulls (NBA Champions)",
-"2001 - Los Angeles Lakers (NBA Champions)",
-"2016 - Cleveland Cavaliers (NBA Champions)",
-"2020 - LA Lakers (NBA Champions)",
-"All-Time Points Leader: LeBron James",
-"Most NBA Championships (Player): Bill Russell"
+
+nba:[
+"1996 - Chicago Bulls defeated Seattle - MVP: Michael Jordan",
+"2001 - LA Lakers defeated 76ers - MVP: Shaquille O'Neal",
+"2016 - Cavaliers defeated Warriors - LeBron 41 points Game 7",
+"2020 - Lakers defeated Heat - LeBron Finals MVP",
+"2023 - Denver Nuggets defeated Miami Heat"
+],
+
+players:[
+"Football - Cristiano Ronaldo - Portugal - 850+ Career Goals",
+"Football - Lionel Messi - Argentina - 8 Ballon d'Or",
+"Cricket - Sachin Tendulkar - India - 18426 ODI Runs",
+"Cricket - Babar Azam - Pakistan - ICC No.1 Ranking",
+"Basketball - LeBron James - USA - All-time points leader",
+"Basketball - Michael Jordan - 6 NBA Championships"
 ]
+
 };
 
-function showSection(section){
-  const container = document.getElementById("content");
-  container.innerHTML = "";
-  database[section].forEach(item=>{
-    container.innerHTML += `<div class="card">${item}</div>`;
-  });
+function showData(section){
+const container=document.getElementById("content");
+container.innerHTML="";
+database[section].forEach(item=>{
+container.innerHTML+=`<div class="card">${item}</div>`;
+});
 }
 
-function searchData(){
-  const query = document.getElementById("searchBox").value.toLowerCase();
-  const container = document.getElementById("content");
-  container.innerHTML = "";
-
-  Object.values(database).flat().forEach(item=>{
-    if(item.toLowerCase().includes(query)){
-      container.innerHTML += `<div class="card">${item}</div>`;
-    }
-  });
+function searchAll(){
+const q=document.getElementById("searchBox").value.toLowerCase();
+const container=document.getElementById("content");
+container.innerHTML="";
+Object.values(database).flat().forEach(item=>{
+if(item.toLowerCase().includes(q)){
+container.innerHTML+=`<div class="card">${item}</div>`;
+}
+});
 }
 
-showSection('football');
+showData('football');
 
 </script>
 
